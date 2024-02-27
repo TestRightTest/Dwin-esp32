@@ -7,7 +7,7 @@ void sensorSetup(){
 
   t0 = 298.15;  //Temperature   t0 from datasheet, conversion from Celsius to kelvin
   pinMode(HEATER_PIN, OUTPUT);
-e
+
   //rescale  timer according to dt
   SetTime = SetTime * TicksPerMS;
 

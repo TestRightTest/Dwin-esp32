@@ -34,7 +34,6 @@ Adafruit_ADS1115 ads4; //0X49
 Adafruit_ADS1115 adsTemp; //0X48
 
 TwoWire I2Cone = TwoWire(0);
-TwoWire I2Ctwo = TwoWire(1);
 
 // ADS1115 declaration ends
 
