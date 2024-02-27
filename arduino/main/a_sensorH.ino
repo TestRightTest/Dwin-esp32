@@ -3,11 +3,6 @@
 #define SDA_PHOTODIODE 21
 #define SCL_PHOTODIODE 22
 
-// Heater & Temperature Sensor Pins
-#define HEATER_PIN 2
-#define SDA_TEMP 33
-#define SCL_TEMP 32
-
 // Stepper Motor Pins
 #define STEP_PIN 18
 #define DIR_PIN 19
@@ -31,7 +26,6 @@ Adafruit_ADS1115 ads1; //0X49
 Adafruit_ADS1115 ads2; //0X49
 Adafruit_ADS1115 ads3; //0X48
 Adafruit_ADS1115 ads4; //0X49
-Adafruit_ADS1115 adsTemp; //0X48
 
 TwoWire I2Cone = TwoWire(0);
 
@@ -57,8 +51,6 @@ const int pwmChannel = 1;
 const int ledpwmChannel = 2;
 const int resolution = 10;
 
-//double tempShift;
-
 unsigned long lastMillis = 0, currentMillis = 0, previousMillisWifi = 0;
 
 
@@ -69,19 +61,14 @@ int current_limitpin, prev_limitpin;
 #define VCC 3.29    //Supply   voltage
 #define ADCmax 26287 //TempADC maxvalue at VCC input
 
-const int dt = 500; // [ms] time constant in milliseconds(controller clock rate = 1/(dt/1000) [Hz])
-#define SetTemp set_temp //[degC] set temperature in DegC
-float MinTemp = set_temp - 5; // [degC] minimum expected temperature (needed for rescaling inputs)
-float MaxTemp = set_temp; // [degC] maximum allowed temperature, over which heater is turned off (needed for rescaling inputs)
 int SetTime = 1800; // [s] timer in seconds, if reached, running stops [Default: 1800]  
 double K_P_ctrl = 10; //proportional gain
 double K_I_ctrl = 0; //integral gain (set to lower values i.e. 10^-3)
 double K_D_ctrl = 0; //derivative gain
 ///////////////////////////////////
-#define Rt0 100000   // O
 #define R 100000  //R=100KO
 #define B 3950      //   K
-float RT, VR, ln, tx, t0, VRT, previous_error, s_integral;
+float RT, VR, ln, tx, VRT;
 bool bInRange = 0;
 int TicksPerMS = floor(1000/dt);
 

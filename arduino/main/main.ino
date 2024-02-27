@@ -9,6 +9,10 @@
 #include <NTPClient.h>
 
 
+// Thermostat variables starts
+extern float tempShift;
+
+// Thermostat variables starts
 
 const byte rxPin = 16; // rx2
 const byte txPin = 17; // tx2
@@ -19,8 +23,6 @@ HardwareSerial dwin(1);
 const float datainterval = 0.5; //in min
 //const float set_temp = 37.6; //deg C
 float temperature;
-float tempShift = 37.6; // temperature shift value
-float set_temp = 37.6 - (tempShift-37.6); //deg C
 
 
 
@@ -272,11 +274,13 @@ void setup() {
   timeClient.begin();
 
 
+    thermostatInit();
 }
 
 void loop()
 {  
-  controlTemp(); //priority 3
+  thermostatLoop(); //priority 3
+  
   processSerialCommand(); //priority 5
   readChannels();//check 30 seconds elapsed and take readings. priority 4
 
